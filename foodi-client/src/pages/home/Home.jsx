@@ -1,8 +1,16 @@
-import React from 'react'
-
+import React from 'react';
+import Banner from '../../components/Banner';
+import Catagories from './Catagories';
+import SpecialDishes from './SpecialDishes';
+import Testimonals from './Testimonals';
 const Home = () => {
   return (
-   <div></div>
+    <div>
+     <Banner />
+     <Catagories />
+     <SpecialDishes />
+     <Testimonals />
+    </div>
   )
 }
 
