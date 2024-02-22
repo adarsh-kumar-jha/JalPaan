@@ -12,7 +12,7 @@ const Catagories = () => {
     <div className={`max-w-screen-2xl container mx-auto xl:px-24 px-4 py-16 `}>
         <div className='text-center'>
             <p className=' text-red uppercase tracking-wide font-semibold text-lg'>Customer Favorites</p>
-            <h2 className='title'>Popular Catagories</h2>
+            <h2 className='title font-patrick'>Popular Catagories</h2>
         </div>
 
         {/* category cards */}
