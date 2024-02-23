@@ -70,8 +70,11 @@ body{
  .active{
    text-decoration: underline;
    text-underline-offset: 5px;
-   color: #39DB4A;
+   color: #FF4F00;
+   
  }
+
+ 
  
  .loading-spinner {
    display: flex;

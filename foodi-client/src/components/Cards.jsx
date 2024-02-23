@@ -35,7 +35,7 @@ const Cards = ({ item }) => {
           <h5 className="font-semibold">
             <span className="text-sm text-red">Rs. </span> {item.price}
           </h5>
-          <button className="btn bg-green text-white">Buy </button>
+          <button className="btn bg-green text-white">Add to Cart </button>
         </div>
       </div>
     </div>
