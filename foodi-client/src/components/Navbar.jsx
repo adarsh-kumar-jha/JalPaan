@@ -49,13 +49,13 @@ const navItems = (
           <summary >Services</summary>
           <ul >
             <li>
-              <a >Online Order</a>
+              <a font-patrick>Online Ordering</a>
             </li>
             <li>
-              <a >Table Booking</a>
+              <a font-patrick>Fast Delivery</a>
             </li>
             <li>
-              <a >Order Tracking</a>
+              <a font-patrick>Shaniwaar ka Vaar </a>
             </li>
           </ul>
         </details>
