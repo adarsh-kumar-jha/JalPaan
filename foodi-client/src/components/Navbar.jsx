@@ -3,6 +3,7 @@ import { RiUserStarLine } from "react-icons/ri";
 import { AuthContext } from '../contexts/AuthProvider';
 import Modal from './Modal';
 import Profile from './Profile';
+import { Link } from 'react-router-dom';
 const Navbar = ()=>
 {
     const [isSticky, setSticky] = useState(false);
@@ -41,10 +42,16 @@ const navItems = (
               </a>
             </li>
             <li>
-              <a >Salad</a>
+              <a >Chinese</a>
             </li>
             <li>
-              <a >Pizza</a>
+              <a >Paratha</a>
+            </li>
+            <li>
+              <a >Rolls & Noodles</a>
+            </li>
+            <li>
+              <a >Rice</a>
             </li>
           </ul>
         </details>
@@ -72,7 +79,7 @@ const navItems = (
   );
   return (
     <header
-      className={`max-w-screen-2xl container mx-auto fixed top-0 left-0 right-0 transition-all duration-300 ease-in-out `}
+      className={`max-w-screen-2xl container mx-auto fixed top-0 left-0 right-0 transition-all duration-300 ease-in-out font-patrick`}
     >
       <div
         className={`navbar xl:px-24 ${
@@ -81,7 +88,7 @@ const navItems = (
             : ""
         }`}
       >
-        <div className="navbar-start">
+        <div className="navbar-start ">
           <div className="dropdown justify-between">
             <label  tabIndex={0} className="btn btn-ghost lg:hidden" >
               <svg
@@ -133,8 +140,9 @@ const navItems = (
               />
             </svg>
           </button>
-         
-       
+
+         {/* car items */}
+         <Link to="cart-page">
          <label
             tabIndex={0}
             className="btn btn-ghost btn-circle  lg:flex items-center justify-center mr-3"
@@ -154,9 +162,12 @@ const navItems = (
                   d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                 />
               </svg>
-              <span className="badge badge-sm indicator-item">8</span>
+              <span className="badge badge-sm indicator-item">0</span>
             </div>
           </label>
+         </Link>
+       
+         
          {/* </Link> */}
 
           {/* login button */}

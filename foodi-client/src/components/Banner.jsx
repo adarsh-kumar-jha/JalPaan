@@ -104,8 +104,8 @@ const Banner = () => {
         <h2 className="md:text-5xl text-4xl font-bold md:leading-snug leading-snug">
         Ashish Bhaiya ka <span className="italic">lazeez</span> <span className="text-green  font-hindi">खाना खजाना</span>
           </h2>
-          <p className=" font-patrick text-[#4A4A4A] text-4xl ">
-            CaNtEEn mei nahi hai SEAT <span className="italic text-green text-6xl"> আররু দা </span>ka khana hai HIT!!
+          <p className=" font-patrick text-[#4A4A4A] text-3xl ">
+            CaNtEEn mei nahi hai SEAT <span className="italic text-green text-5xl"> आरू दा  </span> ka khana hai HIT!!
           </p>
           <button className="bg-green font-semibold btn text-white px-8 py-3 rounded-full">
             Order Now
