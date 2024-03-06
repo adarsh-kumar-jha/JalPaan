@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
-import useCart from "../../hooks/useCart";
-import { AuthContext } from "../../contexts/AuthProvider";
-import Swal from "sweetalert2";
-import { FaTrash } from "react-icons/fa";
-import {Link} from 'react-router-dom'
 import axios from "axios";
+import React, { useContext, useState } from "react";
+import { FaTrash } from "react-icons/fa";
+import { Link } from 'react-router-dom';
+import Swal from "sweetalert2";
+import { AuthContext } from "../../contexts/AuthProvider";
+import useCart from "../../hooks/useCart";
 
 const CartPage = () => {
   const { user } = useContext(AuthContext);
