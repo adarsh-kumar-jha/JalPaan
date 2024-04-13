@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Cards from "../../components/Cards";
 import { FaFilter } from "react-icons/fa";
+import Cards from "../../components/Cards";
 
 const Menu = () => {
   const [menu, setMenu] = useState([]);
@@ -90,7 +90,7 @@ const Menu = () => {
             <h2 className="md:text-5xl text-4xl font-bold md:leading-snug leading-snug">
               For the Love of Delicious <span className="text-green">Food</span>
             </h2>
-            <p className="text-[#4A4A4A] text-xl md:w-4/5 mx-auto">
+            <p className="text-[#4A4A4A] text-xl md:w-4/5 mx-auto title1">
               Come with family & feel the joy of mouthwatering food such as
               Greek Salad, Lasagne, Butternut Pumpkin, Tokusen Wagyu, Olivas
               Rellenas and more for a moderate cost

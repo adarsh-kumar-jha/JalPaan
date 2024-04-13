@@ -1,4 +1,26 @@
+import { motion } from 'framer-motion';
 import React from "react";
+
+// Define the fadeIn function
+const fadeIn = (direction, delay) => {
+    return {
+        hidden: {
+            y: direction === 'up' ? 40 : direction === 'down' ? -40 : 0,
+            x: direction === 'left' ? 40 : direction === 'right' ? -40 : 0,
+        },
+        show: {
+            y: 0,
+            x: 0,
+            opacity: 1,
+            transition: {
+                type: 'tween',
+                duration: 1.2,
+                delay: delay,
+                ease: [0.25, 0.25, 0.25, 0.75],
+            }
+        }
+    };
+};
 
 const serviceLists = [
     {id:1, title: "Online Ordering", des: "Order Online, Connect to आशीष भैया", img: "/images/home/services/icon1.png"},
@@ -9,7 +31,14 @@ const serviceLists = [
 
 const OurServices = () => {
   return (
-    <div className="section-container my-16">
+    <motion.div 
+    variants={fadeIn("right", 0.2)}
+            initial="hidden"
+            whileInView={"show"}
+            viewport={{once: false, amount: 0.5}}
+    
+    
+    className="section-container my-16">
       <div className="flex flex-col md:flex-row items-center justify-between gap-12">
         <div className="md:w-1/2">
           <div className="text-left md:w-4/5">
@@ -40,7 +69,7 @@ const OurServices = () => {
             </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

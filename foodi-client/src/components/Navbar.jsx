@@ -1,14 +1,25 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { RiUserStarLine } from "react-icons/ri";
+import { Link } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthProvider';
+import useCart from '../hooks/useCart';
 import Modal from './Modal';
 import Profile from './Profile';
-import { Link } from 'react-router-dom';
+// motion
+// variants
 const Navbar = ()=>
 {
     const [isSticky, setSticky] = useState(false);
     const {user} =useContext(AuthContext);
     console.log(user);
+  
+    const [cart,refetch] = useCart();
+    console.log(cart);
+  
+
+
+
+
     useEffect(() => {
         const handleScroll = () => {
           const offset = window.scrollY;
@@ -27,12 +38,16 @@ const Navbar = ()=>
       }, []);
 const navItems = (
     <>
-      <li>
+     
+       
+       
+       
+      <li className='text-lg'>
         <a href="/" >
           Home
         </a>
       </li>
-      <li tabIndex={0}>
+      <li className='text-lg'tabIndex={0}>
         <details>
           <summary >Menu</summary>
           <ul >
@@ -56,7 +71,7 @@ const navItems = (
           </ul>
         </details>
       </li>
-      <li tabIndex={0}>
+      <li className='text-lg' tabIndex={0}>
         <details>
           <summary >Services</summary>
           <ul >
@@ -72,14 +87,15 @@ const navItems = (
           </ul>
         </details>
       </li>
-      <li>
+      <li className='text-lg'>
         <a >Offers</a>
       </li>
+      
     </>
   );
   return (
     <header
-      className={`max-w-screen-2xl container mx-auto fixed top-0 left-0 right-0 transition-all duration-300 ease-in-out font-patrick`}
+      className={`max-w-screen-2xl container mx-auto fixed top-0 left-0 right-0 transition-all duration-300 ease-in-out font-patrick `}
     >
       <div
         className={`navbar xl:px-24 ${
@@ -115,8 +131,11 @@ const navItems = (
             </ul>
           </div>
           <a href="/">
-            {/* <img src={logo} alt="" /> */
-                <h1 className="font-patrick text-5xl "> <span className="text-green">जल</span>pAAn</h1>
+            {   
+           
+             
+                <h1 className="font-patrick text-5xl title1"> <span className="text-green">जल</span>pAAn</h1>
+                
             }
           </a>
         </div>
@@ -141,7 +160,7 @@ const navItems = (
             </svg>
           </button>
 
-         {/* car items */}
+         {/* cart items */}
          <Link to="cart-page">
          <label
             tabIndex={0}
@@ -162,7 +181,7 @@ const navItems = (
                   d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                 />
               </svg>
-              <span className="badge badge-sm indicator-item">0</span>
+              <span className="badge badge-sm indicator-item">{cart.length || 0}</span>
             </div>
           </label>
          </Link>

@@ -1,7 +1,10 @@
 import React from "react";
-
 import bannerImg from "/images/home/banner.jpg";
 import backGround from "/images/home/canteenmenu.jpg";
+// motion
+import { motion } from 'framer-motion';
+// variants
+import { fadeIn } from '../variants';
 
 const Banner = () => {
 
@@ -9,12 +12,19 @@ const Banner = () => {
   
   return (
     <div className={`max-w-screen-2xl container mx-auto xl:px-24 bg-gradient-to-r from-0% from-[#FAFAFA] to-[#FCFCFC] to-100% `} style={{ backgroundImage: `url(${bannerImg})`, backgroundSize: 'cover', backgroundPosition: 'center', marginTop: '70px',borderRadius: '5%'  }}>
-      <div    className={`py-24 flex flex-col md:flex-row-reverse items-center justify-between gap-8  `} >
+      <motion.div    
+      variants={fadeIn("right",0.2)}
+      initial="hidden"
+      whileInView={"show"}
+      viewport={{once:false,amount:0.5}}
+      
+      
+      className={`py-24 flex flex-col md:flex-row-reverse items-center justify-between gap-8  `} >
         
      
 
         {/* img */}
-        <div  className="md:w-1/2">
+        <div className="md:w-1/2">
           
           <img src={backGround}  className="mt-4   " alt="" />
           
@@ -118,7 +128,7 @@ const Banner = () => {
         </div>
         
 
-      </div>
+      </motion.div>
     </div>
   );
 };
