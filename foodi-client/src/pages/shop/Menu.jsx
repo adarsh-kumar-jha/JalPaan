@@ -88,23 +88,27 @@ const paginate = (pageNumber) => setcurrentPage(pageNumber);
   return (
     <div>
         {/* menubanner */}
-    <div className={`max-w-screen-2xl container mx-auto xl:px-24 bg-gradient-to-r from-0% from-[#FAFAFA] to-[#FCFCFC] to-100% `}>
-      <div className={`py-48 flex flex-col  items-center justify-center gap-8 `}>
-        {/* texts */}
-        <div className=" text-center px-4 space-y-7">
-        <h2 className="md:text-5xl text-4xl font-bold md:leading-snug leading-snug">
-        For The Delicious urff <span className="italic">lazeez</span> <span className="text-green  font-hindi">खाना</span>
-          </h2>
-          <p className=" font-patrick text-[#4A4A4A] text-4xl ">
-            Come with friends or alone and enjoy the <span className="italic text-green text-6xl">finger-licking </span>foood!!
-          </p>
-          <button className="bg-green font-semibold btn text-white px-8 py-3 rounded-full">
-            Order Now
-          </button>
-        </div>
-        
-      </div>
+        <div className={`relative bg-gradient-to-r from-0% from-[#FAFAFA] to-[#FCFCFC] to-100%`}>
+  {/* Video Background */}
+  <video src="/images/meal11.mp4" autoPlay loop muted className="absolute inset-0 w-full h-full object-cover z-0"></video>
+  
+  {/* Content */}
+  <div className="max-w-screen-2xl container mx-auto xl:px-24 relative z-10 py-48 flex flex-col items-center justify-center gap-8">
+    {/* Texts */}
+    <div className="text-center px-4 space-y-7 text-white">
+      <h2 className="md:text-5xl text-4xl font-bold md:leading-snug leading-snug">
+       <span className='text-green'>For The De</span> licious urff <span className="italic">laz <span className='text-green'>eez</span></span> <span className="text-green font-hindi">खाना</span>
+      </h2>
+      <p className="font-patrick text-black text-4xl">
+        Come with friends or alone and enjoy the <span className="italic text-green text-6xl">finger-licking </span>foood!!
+      </p>
+      <button className="bg-green font-semibold btn text-white px-8 py-3 rounded-full">
+        Order Now
+      </button>
     </div>
+  </div>
+</div>
+
     
    {/* menu shop section   */}
    <div className='section-container'>

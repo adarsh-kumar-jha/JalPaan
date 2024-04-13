@@ -1,8 +1,11 @@
-import React from 'react'
+import React from 'react';
+// variants
+// variants
 
 export const Footer = () => {
   return (
-    <div><footer className="footer xl:px-24 py-10  text-base-content">
+    <>
+      <footer className="footer xl:px-24 py-10  text-base-content">
     <aside>
     <h1 className="font-patrick text-5xl "> <span className="text-green">जल</span>pAAn</h1>
        <p className='my-4 md:w-40'></p>
@@ -28,7 +31,11 @@ export const Footer = () => {
     </nav>
   </footer>
   <hr />
-  <footer className="footer items-center xl:px-24 py-10 px-4 ">
+  <footer
+  
+  
+  
+  className="footer items-center xl:px-24 py-10 px-4 ">
   <aside className="items-center grid-flow-col">
     
     <p>Copyright © 2024 - All right reserved By Adarsh And Shashwat</p>
@@ -40,7 +47,7 @@ export const Footer = () => {
     <a><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" className="fill-current"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"></path></svg></a>
   </nav>
 </footer>
-  </div> 
+  </> 
   )
 }
 export default Footer

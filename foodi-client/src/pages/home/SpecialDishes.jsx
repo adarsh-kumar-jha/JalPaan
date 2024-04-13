@@ -1,10 +1,33 @@
 /* eslint-disable react/prop-types */
+import { motion } from 'framer-motion';
 import React, { useEffect, useState } from "react";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import Cards from "../../components/Cards";
+
+// Define the fadeIn function
+const fadeIn = (direction, delay) => {
+  return {
+      hidden: {
+          y: direction === 'up' ? 40 : direction === 'down' ? -40 : 0,
+          x: direction === 'left' ? 40 : direction === 'right' ? -40 : 0,
+      },
+      show: {
+          y: 0,
+          x: 0,
+          opacity: 1,
+          transition: {
+              type: 'tween',
+              duration: 1.2,
+              delay: delay,
+              ease: [0.25, 0.25, 0.25, 0.75],
+          }
+      }
+  };
+};
+
 
 const SampleNextArrow = (props) => {
   const { className, style, onClick } = props;
@@ -83,7 +106,14 @@ const SpecialDishes = () => {
     prevArrow: <SamplePrevArrow />,
   };
   return (
-    <div className="max-w-screen-2xl container mx-auto xl:px-24 px-4 my-20 relative">
+    <motion.div 
+    variants={fadeIn("right", 0.2)}
+            initial="hidden"
+            whileInView={"show"}
+            viewport={{once: false, amount: 0.5}}
+    
+    
+    className="max-w-screen-2xl container mx-auto xl:px-24 px-4 my-20 relative">
        <div className='text-left'>
             <p className='subtitle'>Customer Favorites</p>
             <h2 className='title'>Popular Catagories</h2>
@@ -107,7 +137,7 @@ const SpecialDishes = () => {
           <Cards item={item} key={i}/>
         ))}
       </Slider>
-    </div>
+    </motion.div>
   );
 };
 

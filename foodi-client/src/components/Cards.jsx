@@ -1,24 +1,71 @@
 import React, { useContext, useState } from "react";
 import { FaHeart } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2';
 import { AuthContext } from "../contexts/AuthProvider";
-
 
 const Cards = ({ item }) => {
  const {name, image, price, recipe, _id} = item;
   const [isHeartFilled, setIsHeartFilled] = useState(false);
-  const {users}=  useContext(AuthContext)
+  const {user}=  useContext(AuthContext)
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+
   // add to cart
-  const handleAddtoCart = (item)=> {
+  const handleAddtoCart = (item) => {
     if(user && user?.email){
       const cartItem = {menuItemId: _id,name,quantity:1,image,price,email:user.email};
       // console.log(cartItem);
-       fetch('http://localhost:6001/carts')
-      .then(res=>res.json())
+       fetch("http://localhost:6001/carts",
+       {
+        method: "POST",
+        headers:
+        {
+          'content-type': 'application/json'
+        },
+        body:JSON.stringify(cartItem)
+       })
+      
+      .then((res) =>res.json())
       .then((data) => {
-       console.log(data);
+      //  console.log(data);
+      if(data.insertedId)
+      {
+        Swal.fire({
+          position: "middle",
+          icon: "success",
+          title: "Your work has been saved",
+          showConfirmButton: false,
+          backdrop: `
+    rgba(0,0,0,0.4)
+    url("/images/best.gif")
+    left
+    no-repeat`,
+          timer: 2000
+          
+        });
+      }
+
       });
     
+    }
+    else
+    {
+      Swal.fire({
+        title: "Please Login?",
+        text: "Without an account can't able to add products",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Signup Now!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+         navigate('/signup',{state:{from: location}})
+        }
+      });
     }
   }
 

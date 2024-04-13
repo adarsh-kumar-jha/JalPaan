@@ -1,10 +1,36 @@
 /* eslint-disable react/no-unescaped-entities */
+import { motion } from 'framer-motion';
 import React from "react";
 import { FaStar } from "react-icons/fa";
+const fadeIn = (direction, delay) => {
+  return {
+      hidden: {
+          y: direction === 'up' ? 40 : direction === 'down' ? -40 : 0,
+          x: direction === 'left' ? 40 : direction === 'right' ? -40 : 0,
+      },
+      show: {
+          y: 0,
+          x: 0,
+          opacity: 1,
+          transition: {
+              type: 'tween',
+              duration: 1.2,
+              delay: delay,
+              ease: [0.25, 0.25, 0.25, 0.75],
+          }
+      }
+  };
+};
 
 const Testimonials = () => {
   return (
-    <div className="section-container">
+    <motion.div 
+    variants={fadeIn("right", 0.2)}
+            initial="hidden"
+            whileInView={"show"}
+            viewport={{once: false, amount: 0.5}}
+    
+    className="section-container">
       <div className="flex flex-col md:flex-row items-center justify-between gap-12">
         <div className="md:w-1/2">
           <img src="/images/home/testimonials/testimonials.png" alt="" />
@@ -48,7 +74,7 @@ const Testimonials = () => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
