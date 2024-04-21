@@ -7,8 +7,8 @@ import router from './router/Router.jsx';
 
 // tankstack
 import {
-    QueryClient,
-    QueryClientProvider,
+  QueryClient,
+  QueryClientProvider
 } from '@tanstack/react-query';
 
   const queryClient = new QueryClient()
