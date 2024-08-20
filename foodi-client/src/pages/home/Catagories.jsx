@@ -1,61 +1,80 @@
 import { motion } from 'framer-motion';
+import { useTheme } from "../../hooks/ThemeContext";
 import React from 'react';
 
-// Define the fadeIn function
-const fadeIn = (direction, delay) => {
-    return {
-        hidden: {
-            y: direction === 'up' ? 40 : direction === 'down' ? -40 : 0,
-            x: direction === 'left' ? 40 : direction === 'right' ? -40 : 0,
-        },
-        show: {
-            y: 0,
-            x: 0,
-            opacity: 1,
-            transition: {
-                type: 'tween',
-                duration: 1.2,
-                delay: delay,
-                ease: [0.25, 0.25, 0.25, 0.75],
-            }
+const fadeIn = (direction = 'up', delay = 0) => ({
+    hidden: {
+        opacity: 0,
+        x: direction === 'left' ? -50 : direction === 'right' ? 50 : 0,
+        y: direction === 'up' ? 50 : direction === 'down' ? -50 : 0,
+        scale: 0.95, // Start slightly smaller
+    },
+    show: {
+        opacity: 1,
+        x: 0,
+        y: 0,
+        scale: 1, // Scale to normal size
+        transition: {
+            type: 'spring',
+            duration: 1.5, // Slightly longer duration for a smoother effect
+            delay: delay,
+            ease: 'easeInOut',
         }
-    };
-};
+    }
+});
 
 const categoryItems = [
-    {id: 1, title: "Main Dish", despriction: "(20+ dishes)", image: "/images/home/category/img1.jpg"},
-    {id: 2, title: "Grocery", despriction: "(Packet Item)", image: "/images/home/category/img2.png"},
-    {id: 3, title: "Icre-Cream", despriction: "(Every-Type)", image: "/images/home/category/img3.png"},
-    {id: 4, title: "Browse All", despriction: "(50+ Items)", image: "/images/home/category/img4.png"}
+    { id: 1, title: "Main Dish", description: "(20+ dishes)", image: "/images/home/category/img1.jpg" },
+    { id: 2, title: "Grocery", description: "(Packet Item)", image: "/images/home/category/img2.png" },
+    { id: 3, title: "Ice-Cream", description: "(Every-Type)", image: "/images/home/category/img3.png" },
+    { id: 4, title: "Browse All", description: "(50+ Items)", image: "/images/home/category/img4.png" }
 ]
 
-const Catagories = () => {
+const Categories = () => {
+    const { isDarkMode } = useTheme();
+
     return (
-        <motion.div    
+        <motion.div
             variants={fadeIn("right", 0.2)}
             initial="hidden"
-            whileInView={"show"}
-            viewport={{once: false, amount: 0.5}}
-            className={`max-w-screen-2xl container mx-auto xl:px-24 px-4 py-16 `}>
-            <div className='text-center'>
-                <p className='text-red uppercase tracking-wide font-semibold text-lg'>Customer Favorites</p>
-                <h2 className='title font-patrick'>Popular Categories</h2>
+            whileInView="show"
+            viewport={{ once: true, amount: 0.5 }}
+            className="max-w-screen-2xl container mx-auto xl:px-24 px-4 py-16"
+        >
+            <div className="text-center">
+                <p className="text-red uppercase tracking-wide font-semibold text-sm sm:text-lg">Customer Favorites</p>
+                <h2 className={`title font-patrick text-2xl sm:text-3xl md:text-4xl ${isDarkMode ? 'text-white' : 'text-black'}`}>
+                    Popular Categories
+                </h2>
             </div>
 
-            {/* category cards */}
-            <div className='flex flex-col sm:flex-row flex-wrap gap-8 justify-around items-center mt-12 '>
+            <div className="flex flex-col sm:flex-row flex-wrap gap-8 justify-center items-center mt-12">
                 {categoryItems.map((item, i) => (
-                    <div key={i} className='shadow-lg rounded-md bg-white py-6 px-5 w-72 mx-auto text-center cursor-pointer hover:-translate-y-4 transition-all duration-300 z-10'>
-                        <div className='w-full mx-auto flex items-center justify-center'><img src={item.image} alt="" className='bg-new1 p-5 rounded-full w-28 h-28' /></div>
-                        <div className='mt-5 space-y-1'>
-                            <h5 className='text-[#1E1E1E] font-semibold'>{item.title}</h5>
-                            <p className='text-secondary text-sm'>{item.despriction}</p>
+                    <motion.div
+                        key={i}
+                        variants={fadeIn("up", 0.1 * i)}
+                        initial="hidden"
+                        whileInView="show"
+                        viewport={{ once: true, amount: 0.2 }}
+                        className={`shadow-lg rounded-md py-6 px-5 w-64 sm:w-72 mx-auto text-center cursor-pointer hover:-translate-y-4 transition-all duration-300 z-10
+                            ${isDarkMode ? 'bg-gray-800 shadow-gray-900' : 'bg-white shadow-gray-300'}`}
+                    >
+                        <div className="w-full mx-auto flex items-center justify-center">
+                            <img src={item.image} alt={item.title} className="bg-new1 p-5 rounded-full w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28" />
                         </div>
-                    </div>
+                        <div className="mt-5 space-y-1">
+                            <h5 className={`font-semibold text-lg sm:text-xl ${isDarkMode ? 'text-white' : 'text-black'}`}>
+                                {item.title}
+                            </h5>
+                            <p className={`text-xs sm:text-sm ${isDarkMode ? 'text-gray-400' : 'text-secondary'}`}>
+                                {item.description}
+                            </p>
+                        </div>
+                    </motion.div>
                 ))}
             </div>
         </motion.div>
-    )
-}
+    );
+};
 
-export default Catagories;
+export default Categories;

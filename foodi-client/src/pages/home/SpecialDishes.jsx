@@ -10,24 +10,24 @@ import Cards from "../../components/Cards";
 // Define the fadeIn function
 const fadeIn = (direction, delay) => {
   return {
-      hidden: {
-          y: direction === 'up' ? 40 : direction === 'down' ? -40 : 0,
-          x: direction === 'left' ? 40 : direction === 'right' ? -40 : 0,
-      },
-      show: {
-          y: 0,
-          x: 0,
-          opacity: 1,
-          transition: {
-              type: 'tween',
-              duration: 1.2,
-              delay: delay,
-              ease: [0.25, 0.25, 0.25, 0.75],
-          }
+    hidden: {
+      opacity: 0,
+      y: direction === 'up' ? 40 : direction === 'down' ? -40 : 0,
+      x: direction === 'left' ? 40 : direction === 'right' ? -40 : 0,
+    },
+    show: {
+      opacity: 1,
+      x: 0,
+      y: 0,
+      transition: {
+        type: 'tween',
+        duration: 1.2,
+        delay: delay,
+        ease: [0.25, 0.25, 0.25, 0.75],
       }
+    }
   };
 };
-
 
 const SampleNextArrow = (props) => {
   const { className, style, onClick } = props;
@@ -50,7 +50,7 @@ const SamplePrevArrow = (props) => {
       style={{ ...style, display: "block", background: "green" }}
       onClick={onClick}
     >
-      BACK4
+      BACK
     </div>
   );
 };
@@ -64,10 +64,10 @@ const SpecialDishes = () => {
       .then((res) => res.json())
       .then((data) => {
         const specials = data.filter((item) => item.category === "popular");
-        // console.log(specials)
         setRecipes(specials);
       });
   }, []);
+
   const settings = {
     dots: true,
     infinite: false,
@@ -105,36 +105,38 @@ const SpecialDishes = () => {
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
   };
+
   return (
     <motion.div 
-    variants={fadeIn("right", 0.2)}
-            initial="hidden"
-            whileInView={"show"}
-            viewport={{once: false, amount: 0.5}}
-    
-    
-    className="max-w-screen-2xl container mx-auto xl:px-24 px-4 my-20 relative">
-       <div className='text-left'>
-            <p className='subtitle'>Customer Favorites</p>
-            <h2 className='title'>Popular Catagories</h2>
-        </div>
+      variants={fadeIn("right", 0.2)}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: false, amount: 0.5 }}
+      className="max-w-screen-2xl container mx-auto xl:px-24 px-4 my-20 relative"
+    >
+      <div className='text-left'>
+        <p className='subtitle'>Customer Favorites</p>
+        <h2 className='title'>Popular Categories</h2>
+      </div>
+
       <div className="md:absolute right-3 top-8 mb-10 md:mr-24">
-        <button onClick={() => slider?.current?.slickPrev()}
-        className=" btn p-2 rounded-full ml-5"
+        <button
+          onClick={() => slider?.current?.slickPrev()}
+          className="btn p-2 rounded-full ml-5"
         >
-        <FaAngleLeft className=" h-8 w-8 p-1"/>
+          <FaAngleLeft className="h-8 w-8 p-1" />
         </button>
         <button
           className="bg-green btn p-2 rounded-full ml-5"
           onClick={() => slider?.current?.slickNext()}
         >
-          <FaAngleRight className=" h-8 w-8 p-1"/>
+          <FaAngleRight className="h-8 w-8 p-1" />
         </button>
       </div>
 
       <Slider ref={slider} {...settings} className="overflow-hidden mt-10 space-x-5">
         {recipes.map((item, i) => (
-          <Cards item={item} key={i}/>
+          <Cards item={item} key={i} />
         ))}
       </Slider>
     </motion.div>

@@ -1,83 +1,127 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import {  FaGoogle } from "react-icons/fa";
 import { useForm } from "react-hook-form";
-import { FaGoogle } from "react-icons/fa";
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../contexts/AuthProvider';
+import { AuthContext } from "../contexts/AuthProvider";
+import useAxiosPublic from "../hooks/useAxiosPublic";
+
 const Modal = () => {
+  const [errorMessage, seterrorMessage] = useState("");
+  const { signUpWithGmail, login } = useContext(AuthContext);
+  const axiosPublic = useAxiosPublic();
+
+  // modal close button
+  const [isModalOpen, setIsModalOpen] = useState(true); 
+  const closeModal = () => {
+    setIsModalOpen(false);
+    document.getElementById("my_modal_5").close()
+  };
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || "/";
+
+  //react hook form
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
-const {signUpWithGmail, login} = useContext(AuthContext);
-const [errorMessage, seterrorMessage]= useState("");
+  const onSubmit = (data) => {
+    const email = data.email;
+    const password = data.password;
+    login(email, password)
+      .then((result) => {
+        // Signed in
+        const user = result.user;
 
+        const userInfo = {
+          email: result.user?.email,
+          name: result.user?.displayName
+      }
+      axiosPublic.post('/users', userInfo)
+      .then(res =>{
+          console.log(res.data);
+        
+      })
+        // console.log(user);
+        alert("Login successful!");
+        navigate("/");
+        console.log("Modal Open:", isModalOpen);
+        closeModal(); 
+        // ...
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        seterrorMessage("Please provide valid email & password!");
+      });
+      reset()
 
-// redirecting to home page or specific page
-const location = useLocation();
-const navigate = useNavigate();
-const from = location.state?.from?.pathname || "/";
+  };
 
-const onSubmit = (data) =>{
-const email= data.email;
-const password = data.password;
-login(email,password).then((result)=>
-{
-  const user=result.user;
-  alert("Login successful");
-  document.getElementById("my_modal_5").close()
-  navigate(from,{replace:true})
-}).catch((error)=>
-{
-  const errorMessage = error.message;
-  seterrorMessage("Provide a correct email and password!")
-})
-}
+  // login with google
+  const handleRegister = () => {
+    signUpWithGmail().then((result) => {
+      console.log(result.user);
+      const userInfo = {
+        email: result.user?.email,
+        name: result.user?.displayName,
+      };
+      axiosPublic.post("/users", userInfo).then((res) => {
+        console.log(res.data);
+        navigate("/");
+        closeModal();
+      });
+    });
+  };
 
-  // const onSubmit = (data) => console.log(data)
-
-
-  // google signin
-  const handleLogin = () =>
-  {
-    signUpWithGmail().then((result) =>
-    {
-      const user = result.user;
-      alert("Login successful")
-      navigate(from,{replace:true})
-    } ).catch((error)=> console.log(error))
-  }
   return (
-    <dialog id="my_modal_5" className="modal modal-middle sm:modal-middle">
-    <div className="modal-box">
-      <div className="modal-action  font-patrick flex flex-col justify-center mt-0">
-      <form onSubmit={handleSubmit(onSubmit)} className="card-body" method="dialog">
-        <h3 className="font-bold text-lg">Please Login !!</h3>
+    <dialog id="my_modal_5" className={`modal ${isModalOpen ? 'modal-middle sm:modal-middle' : 'hidden'}`}>
+      <div className="modal-box">
+        <div className="modal-action flex-col justify-center mt-0">
+          <form
+            className="card-body"
+            method="dialog"
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            <h3 className="font-bold text-lg">Please Login!</h3>
 
-        {/* email */}
-        <div className="form-control">
-          <label className="label">
-            <span className="label-text">Email</span>
-          </label>
-          <input type="email" placeholder="email" className="input input-bordered" required
-           {...register("email")}/>
-        </div>
+            {/* email */}
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Email</span>
+              </label>
+              <input
+                type="email"
+                placeholder="email"
+                className="input input-bordered"
+                {...register("email")}
+              />
+            </div>
 
-        {/* password */}
-        <div className="form-control">
-          <label className="label">
-            <span className="label-text">Password</span>
-          </label>
-          <input type="password" placeholder="password" className="input input-bordered" required
-           {...register("password")}/>
-          <label className="label mt-1">
-            <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
-          </label>
-        </div>
+            {/* password */}
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Password</span>
+              </label>
+              <input
+                type="password"
+                placeholder="password"
+                className="input input-bordered"
+                {...register("password", { required: true })}
+              />
+              <label className="label">
+                <Link href="#" className="label-text-alt link link-hover mt-2">
+                  Forgot password?
+                </Link>
+              </label>
+            </div>
 
-    {/* error */}
-    {errorMessage ? (
+            {/* show errors */}
+            {errorMessage ? (
               <p className="text-red text-xs italic">
                 Provide a correct username & password.
               </p>
@@ -85,33 +129,44 @@ login(email,password).then((result)=>
               ""
             )}
 
+            {/* submit btn */}
+            <div className="form-control mt-4">
+              <input
+                type="submit"
+                className="btn bg-green text-white"
+                value="Login"
+              />
+            </div>
 
+            {/* close btn */}
+            <div
+              htmlFor="my_modal_5"
+              className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+              onClick={() => document.getElementById("my_modal_5").close()}
+            >
+              ✕
+            </div>
 
-        <div className="form-control mt-6">
-          <input type="submit" value="Login" className="btn bg-green font-bold text-white "/>
+            <p className="text-center my-2">
+              Donot have an account?
+              <Link to="/signup" className="underline text-red ml-1">
+                Signup Now
+              </Link>
+            </p>
+          </form>
+          <div className="text-center space-x-3 mb-5">
+          <p className="font-patrick">Or SignIn with Google</p> <button
+              onClick={handleRegister}
+              className="btn btn-circle hover:bg-green hover:text-white"
+            > 
+              <FaGoogle />
+            </button>
+          
+          </div>
         </div>
-        <p className='text-center my-2'>Don't have an account?{" "} <Link to="/signup"
-        className='underline text-red ml-1' >Signup Now</Link></p>
-         <button 
-         htmlFor="my_modal_5" 
-         onClick={()=>document.getElementById('my_modal_5').close()}
-         className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-      </form>
-
-      {/* social sign in */}
-      <div className='text-center font-patrick space-x-3 mb-5' 
-       >
-        <p>Or sign-in with Google</p>
-        <button className='btn btn-circle hover:bg-green hover:text-white' onClick={handleLogin}>
-        <FaGoogle />
-        </button>
-       
-       
       </div>
-      </div>
-    </div>
-  </dialog>
-  )
-}
+    </dialog>
+  );
+};
 
-export default Modal
+export default Modal;
