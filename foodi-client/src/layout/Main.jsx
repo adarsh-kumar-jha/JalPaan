@@ -5,24 +5,29 @@ import "../../src/App.css";
 import Footer from "../components/Footer";
 import { AuthContext } from "../contexts/AuthProvider";
 import LoadingSpinner from "../components/LoadingSpinner";
+import { useTheme } from "../hooks/ThemeContext";
 
 const Main = () => {
-  const {loading} = useContext(AuthContext);
+  const { loading } = useContext(AuthContext);
+  const { isDarkMode, toggleTheme } = useTheme();
 
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", isDarkMode);
+  }, [isDarkMode]);
   return (
-    <div className="bg-prigmayBG">
+    <div className={`bg-${isDarkMode ? "dark" : "primaryBG"}`}>
       {loading ? (
         <LoadingSpinner />
       ) : (
-        <div>
-        <Navbar />
-        <div className="min-h-screen">
-        <Outlet />
+        <div className="relative">
+          <Navbar />
+
+          <div className="min-h-screen">
+            <Outlet />
+          </div>
+          <Footer />
         </div>
-        <Footer />
-      </div>
       )}
-       
     </div>
   );
 };

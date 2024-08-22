@@ -1,53 +1,128 @@
-import React from 'react';
-// variants
-// variants
+import React from "react";
+import { Link } from "react-router-dom";
+import { showCustomerSupportForm } from "../../public/Common/showCustomerSupportForm";
+import { useTheme } from "../hooks/ThemeContext";
+import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa";
+import { CiLinkedin } from "react-icons/ci";
+import { FaSquareGithub } from "react-icons/fa6";
+import { TfiInstagram } from "react-icons/tfi";
 
 export const Footer = () => {
+  const { isDarkMode } = useTheme();
+
   return (
     <>
-      <footer className="footer xl:px-24 py-10  text-base-content">
-    <aside>
-    <h1 className="font-patrick text-5xl "> <span className="text-green">जल</span>pAAn</h1>
-       <p className='my-4 md:w-40'></p>
-      <p className='font-patrick'>pure Swadeshi & Reliable since 2023</p>
-    </aside> 
-    <nav>
-      <h6 className="footer-title">USEFUL LINKS</h6> 
-      <a className="link link-hover">About us</a>
-      <a className="link link-hover">Events</a>
-      <a className="link link-hover">Blogs</a>
-      <a className="link link-hover">FAQs</a>
-    </nav> 
-    <nav>
-      <h6 className="footer-title">Company</h6> 
-      <a className="link link-hover">About us</a>
-      <a className="link link-hover">Contact</a>
-    </nav> 
-    <nav>
-      <h6 className="footer-title">Legal</h6> 
-      <a className="link link-hover">Terms of use</a>
-      <a className="link link-hover">Privacy policy</a>
-      <a className="link link-hover">Cookie policy</a>
-    </nav>
-  </footer>
-  <hr />
-  <footer
-  
-  
-  
-  className="footer items-center xl:px-24 py-10 px-4 ">
-  <aside className="items-center grid-flow-col">
-    
-    <p>Copyright © 2024 - All right reserved By Adarsh And Shashwat</p>
-  </aside> 
-  <nav className="grid-flow-col gap-4 md:place-self-center md:justify-self-end">
-    <a><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" className="fill-current"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"></path></svg>
-    </a>
-    <a><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" className="fill-current"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"></path></svg></a>
-    <a><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" className="fill-current"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"></path></svg></a>
-  </nav>
-</footer>
-  </> 
-  )
-}
-export default Footer
+      <footer
+        className={`footer xl:px-24 py-10 px-4 text-base-content flex flex-col md:flex-row items-start md:items-center justify-between ${
+          isDarkMode ? "bg-black text-gray-300" : "bg-white text-gray-800"
+        }`}
+      >
+        <aside>
+          <h1 className="font-patrick text-4xl md:text-5xl">
+            <span className="text-green">जल</span>pAAn
+          </h1>
+          <p className="my-4 md:w-40 text-sm md:text-base"></p>
+          <p className="font-patrick text-lg md:text-base ">
+            Pure Swadeshi & Reliable since 2023
+          </p>
+        </aside>
+
+        {/* Uncomment and update the nav sections as needed */}
+        {/* <nav className="mt-8 md:mt-0">
+          <h6 className="footer-title font-patrick text-sm md:text-base">USEFUL LINKS</h6> 
+          <a className="link link-hover font-patrick text-sm md:text-base">About us</a>
+          <a className="link link-hover font-patrick text-sm md:text-base">Events</a>
+          <a className="link link-hover font-patrick text-sm md:text-base">Blogs</a>
+          <a className="link link-hover font-patrick text-sm md:text-base">FAQs</a>
+        </nav> */}
+        {/* <nav className="mt-8 md:mt-0">
+          <h6 className="footer-title font-patrick text-sm md:text-base">Connect With Us</h6> 
+          <Link to="/about" className="link link-hover font-patrick text-sm md:text-base">About Us</Link>
+          <Link to="#" onClick={showCustomerSupportForm} className="link link-hover font-patrick text-sm md:text-base">Contact Us</Link>
+        </nav> */}
+        {/* <nav className="mt-8 md:mt-0">
+          <h6 className="footer-title font-patrick text-sm md:text-base">Legal</h6> 
+          <a className="link link-hover font-patrick text-sm md:text-base">Terms of use</a>
+          <a className="link link-hover font-patrick text-sm md:text-base">Privacy policy</a>
+          <a className="link link-hover font-patrick text-sm md:text-base">Cookie policy</a>
+        </nav> */}
+      </footer>
+
+      <hr className={`${isDarkMode ? "border-gray-700" : "border-gray-300"}`} />
+
+      <footer
+        className={`footer items-center xl:px-24 py-10 px-4 flex flex-col md:flex-row justify-between ${
+          isDarkMode ? "bg-black text-gray-300" : "bg-white text-gray-800"
+        }`}
+      >
+        <aside className="items-center text-center md:text-left">
+          <p className="font-patrick font-semibold text-sm md:text-base">
+            <span className="flex flex-col lg:flex-row lg:items-center">
+              <span className="flex flex-col lg:flex-row lg:items-center">
+                Copyright © 2024 - Built with ❤️ By
+                <span className="text-green ml-1 lg:ml-3">Adarsh</span>
+                <span className="mt-2 lg:mt-0 lg:ml-3 flex items-center gap-2 inline">
+                  <Link
+                    aria-label="LinkedIn"
+                    to="https://www.linkedin.com/in/adarsh-kumar-jha-306b81245?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <FaLinkedin className="text-xl md:text-2xl" />
+                  </Link>
+                  <Link
+                    aria-label="GitHub"
+                    to="https://github.com/adarsh-kumar-jha"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <FaGithub className="text-xl md:text-2xl" />
+                  </Link>
+                  <Link
+                    aria-label="Instagram"
+                    to="https://www.instagram.com/adarsh_addi?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <FaInstagram className="text-xl md:text-2xl" />
+                  </Link>
+                </span>
+              </span>
+              <span className="mt-4 lg:mt-0 flex flex-col lg:flex-row lg:items-center ml-3">
+                And <span className="text-green ml-1 lg:ml-3">Shashwat</span>
+                <span className="mt-2 lg:mt-0 lg:ml-3 flex items-center gap-2 inline">
+                  <Link
+                    aria-label="LinkedIn"
+                    to="https://www.linkedin.com/in/shashwat-tiwari-06313924a/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <CiLinkedin className="text-2xl md:text-3xl" />
+                  </Link>
+                  <Link
+                    aria-label="GitHub"
+                    to="https://github.com/Shashwat8038"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <FaSquareGithub className="text-xl md:text-2xl" />
+                  </Link>
+                  <Link
+                    aria-label="Instagram"
+                    to="https://www.instagram.com/shash1059/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <TfiInstagram className="text-xl md:text-2xl" />
+                  </Link>
+                </span>
+              </span>
+            </span>
+          </p>
+        </aside>
+      </footer>
+    </>
+  );
+};
+
+export default Footer;

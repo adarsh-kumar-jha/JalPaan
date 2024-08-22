@@ -1,0 +1,70 @@
+@media (max-width: 320px) {
+  .cross {
+    margin-top: 50px;
+  }
+  .make {
+    margin-left: 30px;
+  }
+}
+.basic {
+  min-height: 0vh;
+}
+
+@media screen and (max-width: 480px) {
+  .upside {
+    margin-top: 55px;
+  }
+}
+/* Modal Container */
+.modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+/* Modal Content */
+.modal-content {
+  position: relative;
+  background: white;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  margin: 0 auto;
+}
+
+/* Close Button */
+.close-button {
+  position: absolute;
+  top: 1rem;
+  right: 0.5rem;
+  background: rgba(255, 255, 255, 0.8);
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 10;
+}
+
+/* Heading */
+.heading {
+  position: relative;
+  z-index: 5;
+  margin-bottom: 2rem;
+}
+
+/* General Styling */
+.text-center {
+  text-align: center;
+}
+
+.resultBMR,
+.resultPAL {
+  margin-top: 1rem;
+}

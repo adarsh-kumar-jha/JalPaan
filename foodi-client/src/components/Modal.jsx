@@ -1,117 +1,239 @@
-import React, { useContext, useState } from 'react';
-import { useForm } from "react-hook-form";
+import React, { useContext, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaGoogle } from "react-icons/fa";
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../contexts/AuthProvider';
+import { useForm } from "react-hook-form";
+import { AuthContext } from "../contexts/AuthProvider";
+import useAxiosPublic from "../hooks/useAxiosPublic";
+import toast, { Toaster } from "react-hot-toast";
+
 const Modal = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const [errorMessage, setErrorMessage] = useState("");
+  const { signUpWithGmail, login } = useContext(AuthContext);
+  const axiosPublic = useAxiosPublic();
+  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
-const {signUpWithGmail, login} = useContext(AuthContext);
-const [errorMessage, seterrorMessage]= useState("");
+  const { register, handleSubmit, reset } = useForm();
 
+  const closeModal = () => {
+    setIsModalOpen(false);
+    document.getElementById("my_modal_5").close();
+  };
 
-// redirecting to home page or specific page
-const location = useLocation();
-const navigate = useNavigate();
-const from = location.state?.from?.pathname || "/";
+  const onSubmit = (data) => {
+    const email = data.email;
+    const password = data.password;
 
-const onSubmit = (data) =>{
-const email= data.email;
-const password = data.password;
-login(email,password).then((result)=>
-{
-  const user=result.user;
-  alert("Login successful");
-  document.getElementById("my_modal_5").close()
-  navigate(from,{replace:true})
-}).catch((error)=>
-{
-  const errorMessage = error.message;
-  seterrorMessage("Provide a correct email and password!")
-})
-}
+    setErrorMessage("");
 
-  // const onSubmit = (data) => console.log(data)
+    login(email, password)
+      .then((result) => {
+        const userInfo = {
+          email: result.user?.email,
+          name: result.user?.displayName,
+        };
+        axiosPublic.post("/users", userInfo).then((res) => {
+          console.log(res.data);
+        });
+        toast.success("Login successful!", {
+          position: "top-center",
+          style: {
+            backgroundColor: isDarkMode ? "#333" : "#fff",
+            color: isDarkMode ? "#fff" : "#000",
+            fontSize: "16px",
+            boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.1)",
+          },
+        });
+        navigate(from);
+        closeModal();
+      })
+      .catch((error) => {
+        setErrorMessage("Please provide valid email & password!");
+      });
+    reset();
+  };
 
+  // Handle Google sign-in
+  const handleRegister = () => {
+    signUpWithGmail().then((result) => {
+      const userInfo = {
+        email: result.user?.email,
+        name: result.user?.displayName,
+      };
+      axiosPublic.post("/users", userInfo).then((res) => {
+        toast.success("Login successful!", {
+          position: "top-center",
+          style: {
+            backgroundColor: isDarkMode ? "#333" : "#fff",
+            color: isDarkMode ? "#fff" : "#000",
+            fontSize: "16px",
+            boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.1)",
+          },
+        });
+        navigate(from);
+        closeModal();
+      });
+    });
+  };
 
-  // google signin
-  const handleLogin = () =>
-  {
-    signUpWithGmail().then((result) =>
-    {
-      const user = result.user;
-      alert("Login successful")
-      navigate(from,{replace:true})
-    } ).catch((error)=> console.log(error))
-  }
   return (
-    <dialog id="my_modal_5" className="modal modal-middle sm:modal-middle">
-    <div className="modal-box">
-      <div className="modal-action  font-patrick flex flex-col justify-center mt-0">
-      <form onSubmit={handleSubmit(onSubmit)} className="card-body" method="dialog">
-        <h3 className="font-bold text-lg">Please Login !!</h3>
+    <>
+      <dialog
+        id="my_modal_5"
+        className={`modal ${
+          isModalOpen ? "modal-middle sm:modal-middle" : "hidden"
+        } ${isDarkMode ? "bg-gray-900 text-white" : "bg-white text-black"}`}
+      >
+        <div className={`modal-box ${isDarkMode ? "bg-gray-800" : "bg-white"}`}>
+          <div
+            className={`modal-action flex-col justify-center mt-0 ${
+              isDarkMode ? "text-white" : "text-black"
+            }`}
+          >
+            <form
+              className="card-body"
+              method="dialog"
+              onSubmit={handleSubmit(onSubmit)}
+            >
+              <h3
+                className={`font-bold text-lg ${
+                  isDarkMode ? "text-white" : "text-black"
+                }`}
+              >
+                Please Login!
+              </h3>
 
-        {/* email */}
-        <div className="form-control">
-          <label className="label">
-            <span className="label-text">Email</span>
-          </label>
-          <input type="email" placeholder="email" className="input input-bordered" required
-           {...register("email")}/>
-        </div>
+              <div className="form-control">
+                <label
+                  className={`label ${
+                    isDarkMode ? "text-white" : "text-black"
+                  }`}
+                >
+                  <span className="label-text">Email</span>
+                </label>
+                <input
+                  type="email"
+                  placeholder="email"
+                  className={`input input-bordered ${
+                    isDarkMode
+                      ? "bg-gray-700 text-white"
+                      : "bg-white text-black"
+                  }`}
+                  {...register("email")}
+                />
+              </div>
 
-        {/* password */}
-        <div className="form-control">
-          <label className="label">
-            <span className="label-text">Password</span>
-          </label>
-          <input type="password" placeholder="password" className="input input-bordered" required
-           {...register("password")}/>
-          <label className="label mt-1">
-            <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
-          </label>
-        </div>
+              <div className="form-control">
+                <label
+                  className={`label ${
+                    isDarkMode ? "text-white" : "text-black"
+                  }`}
+                >
+                  <span className="label-text">Password</span>
+                </label>
+                <input
+                  type="password"
+                  placeholder="password"
+                  className={`input input-bordered ${
+                    isDarkMode
+                      ? "bg-gray-700 text-white"
+                      : "bg-white text-black"
+                  }`}
+                  {...register("password", { required: true })}
+                />
+                <label className="label">
+                  <Link
+                    to="/forgot"
+                    className={`label-text-alt link link-hover mt-2 ${
+                      isDarkMode ? "text-green" : "text-green"
+                    }`}
+                  >
+                    Forgot password?
+                  </Link>
+                </label>
+              </div>
 
-    {/* error */}
-    {errorMessage ? (
-              <p className="text-red text-xs italic">
-                Provide a correct username & password.
+              {errorMessage && (
+                <p
+                  className={`text-green text-xs italic ${
+                    isDarkMode ? "text-green" : "text-green"
+                  }`}
+                >
+                  {errorMessage}
+                </p>
+              )}
+
+              <div className="form-control mt-4">
+                <input
+                  type="submit"
+                  className={`btn ${
+                    isDarkMode ? "bg-green text-white" : "bg-green text-white"
+                  }`}
+                  value="Login"
+                />
+              </div>
+
+              <div
+                htmlFor="my_modal_5"
+                className={`btn btn-sm btn-circle btn-ghost absolute right-2 top-2 ${
+                  isDarkMode ? "text-white" : "text-black"
+                }`}
+                onClick={closeModal}
+              >
+                ✕
+              </div>
+
+              <p className="text-center my-2">
+                Don’t have an account?
+                <Link
+                  to="/signup"
+                  className={`underline ${
+                    isDarkMode ? "text-green" : "text-green"
+                  } ml-1`}
+                >
+                  Signup Now
+                </Link>
               </p>
-            ) : (
-              ""
-            )}
-
-
-
-        <div className="form-control mt-6">
-          <input type="submit" value="Login" className="btn bg-green font-bold text-white "/>
+            </form>
+            <div className="text-center space-x-3 mb-5">
+              <p
+                className={`${
+                  isDarkMode
+                    ? "text-white font-patrick font-semibold"
+                    : "text-black font-patrick font-semibold"
+                }`}
+              >
+                Or SignIn with Google
+              </p>
+              <button
+                onClick={handleRegister}
+                className={`btn btn-circle hover:bg-green hover:text-white ${
+                  isDarkMode ? "text-black bg-green" : "text-black bg-green"
+                }`}
+              >
+                <FaGoogle />
+              </button>
+            </div>
+          </div>
         </div>
-        <p className='text-center my-2'>Don't have an account?{" "} <Link to="/signup"
-        className='underline text-red ml-1' >Signup Now</Link></p>
-         <button 
-         htmlFor="my_modal_5" 
-         onClick={()=>document.getElementById('my_modal_5').close()}
-         className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-      </form>
+      </dialog>
 
-      {/* social sign in */}
-      <div className='text-center font-patrick space-x-3 mb-5' 
-       >
-        <p>Or sign-in with Google</p>
-        <button className='btn btn-circle hover:bg-green hover:text-white' onClick={handleLogin}>
-        <FaGoogle />
-        </button>
-       
-       
-      </div>
-      </div>
-    </div>
-  </dialog>
-  )
-}
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+        toastOptions={{
+          className: "",
+          style: {
+            marginTop: "70px",
+            fontSize: "16px",
+          },
+        }}
+      />
+    </>
+  );
+};
 
-export default Modal
+export default Modal;

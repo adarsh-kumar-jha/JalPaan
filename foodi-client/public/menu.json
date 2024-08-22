@@ -15,22 +15,8 @@
         "category": "popular",
         "price": 70
     },
-    {
-        "_id": "642c155b2c4774f05c36ee712",
-        "name": "Allo da Paratha",
-        "recipe": "Roasted duck breast (served pink) with gratin potato and a griottine cherry sauce",
-        "image": "/images/recipes/img3.jpg",
-        "category": "popular",
-        "price": 25
-    },
-    {
-        "_id": "642c155b2c4774f05c36ee7x",
-        "name": "Omlet",
-        "recipe": "Roasted duck breast (served pink) with gratin potato and a griottine cherry sauce",
-        "image": "/images/recipes/img4.jpg",
-        "category": "popular",
-        "price": 50
-    },
+   
+   
     {
         "_id": "642c155b2c4774f05c36ee7f",
         "name": "Veg Noodles",

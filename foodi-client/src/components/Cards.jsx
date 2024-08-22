@@ -39,8 +39,8 @@ const Cards = ({ item }) => {
               showConfirmButton: false,
               backdrop: `
     rgba(0,0,0,0.4)
-    url("/images/best.gif")
-    left
+     url("/images/best1.gif")
+    left top
     no-repeat`,
               timer: 1500,
             });
@@ -96,13 +96,16 @@ const Cards = ({ item }) => {
           <img
             src={item.image}
             alt="Shoes"
-            className="hover:scale-105 transition-all duration-300 md:h-72 rounded-full"
+            className="hover:scale-105 transition-all duration-300 md:h-72 rounded-full "
+            onClick={(e) => e.preventDefault()}
           />
         </figure>
       </Link>
       <div className="card-body">
         <Link to={`/menu/${item._id}`}>
-          <h2 className="card-title">{item.name}!</h2>
+          <h2 className="card-title" onClick={(e) => e.preventDefault()}>
+            {item.name}!
+          </h2>
         </Link>
         <p>Description of the item</p>
         <div className="card-actions justify-between items-center mt-2">

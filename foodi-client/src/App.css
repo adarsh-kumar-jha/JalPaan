@@ -29,19 +29,17 @@ body{
  }
  
  .slick-slider {
-   /* background-color: aquamarine; */
-   /* padding-left: 30px; */
-   /* height: 480px !important; */
+ 
  }
   
  
  .slick-prev {
    z-index: 1;
-   /* background-color: red !important; */
+  
  }
  .slick-next {
    z-index: 1;
-   /* background-color: red !important; */
+  
  }
  
  .slick-dots li button:before {
@@ -52,7 +50,7 @@ body{
  
  .slick-dots li.slick-active button:before {
    color: white !important;
-   /* font-size: 12px !important; */
+   
  }
  
  .heartStar{
@@ -85,13 +83,10 @@ body{
    color: #fff; 
  }
  
- /* input[type="number"]::-webkit-inner-spin-button,
- input[type="number"]::-webkit-outer-spin-button {
-     -webkit-appearance: none;
-     margin: 0;
- } */
 
- /* Chrome, Safari, Edge, Opera */
+
+
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -103,8 +98,5 @@ input[type=number] {
   -moz-appearance: textfield;
 }
  
- /* input[type="number"] {
-     -moz-appearance: textfield;
-     appearance: textfield;
- } */
+
 
