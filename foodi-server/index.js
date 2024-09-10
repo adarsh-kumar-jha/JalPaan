@@ -8,6 +8,7 @@ const port = process.env.PORT || 6001;
 const stripe = require("stripe")(process.env.PAYMENT_SECRET_KEY);
 const jwt = require('jsonwebtoken');
 const recipeStreamRoutes = require("./api/routes/recipeStreamRoutes");
+const newsRoutes=require("./api/routes/news");
 
 
 // CORS options
@@ -55,6 +56,7 @@ app.use('/order-stats', orderStats);
 
 // Add recipe stream route
 app.use('/recipeStream', recipeStreamRoutes);
+app.use('/news',newsRoutes);
 
 // payment methods routes
 const verifyToken = require('./api/middlewares/verifyToken');

@@ -21,6 +21,7 @@ import About from "../components/About";
 import ProfileClass from "../components/ProfileClass";
 import Ai from "../components/Ai";
 import ForgotPass from "../components/ForgotPass";
+import News from "../components/News";
 
 // import Order from "../pages/Order";
 
@@ -69,6 +70,10 @@ const router = createBrowserRouter([
           path: "/process-checkout",
           element: <Payment/>
         },
+        {
+          path:"/news",
+          element:<News/>
+        }
       
       ]
     },

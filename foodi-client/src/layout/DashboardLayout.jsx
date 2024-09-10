@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext, useState } from "react";
+import { AuthContext } from "../contexts/AuthProvider";
 import {
   FaEdit,
   FaHome,
@@ -30,8 +31,20 @@ const DashboardLayout = () => {
   const [isAdmin, isAdminLoading] = useAdmin();
   const { isDarkMode, toggleTheme } = useTheme();
   const navigate = useNavigate();
+  const { logOut } = useContext(AuthContext);
+
   const handleLinkClick = () => {
     document.getElementById("my-drawer-2").checked = false;
+  };
+
+  const handleLogout = () => {
+    logOut()
+      .then(() => {
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const sharedMenu = (
@@ -102,6 +115,7 @@ const DashboardLayout = () => {
                 className={`btn flex items-center gap-2 rounded-full px-6 ${
                   isDarkMode ? "bg-green text-white" : "bg-green text-white"
                 } sm:hidden`}
+                onClick={handleLogout} // Attach the handleLogout function
               >
                 <FaRegUser /> Logout
               </button>

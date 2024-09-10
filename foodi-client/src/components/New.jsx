@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import {Link} from "react-router-dom"
 import { useTheme } from "../hooks/ThemeContext";
 import { motion } from "framer-motion";
 import "./new1.css";
@@ -112,13 +113,15 @@ const BMR = () => {
           >
             Check BMR!!
           </button>
-
+          
+         <Link to="/news">
           <button
-            onClick={handleOpenNewsModal}
+            // onClick={handleOpenNewsModal}
             className="btn bg-blue-500 rounded-full text-white flex items-center gap-2 text-sm md:text-base lg:text-lg"
           >
             Get Updated!!
           </button>
+          </Link>
           <Model1 />
         </div>
 

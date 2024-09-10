@@ -57,33 +57,58 @@ const Signup = () => {
     }
   };
 
-  const handleRegister = async () => {
-    try {
-      const result = await signUpWithGmail();
-      console.log(result.user);
-
+  const handleRegister = () => {
+    signUpWithGmail().then((result) => {
       const userInfo = {
         email: result.user?.email,
         name: result.user?.displayName,
       };
-
-      await axiosPublic.post("/users", userInfo);
-
-      Swal.fire({
-        icon: "success",
-        title: "Successfully Logged In Using Google",
-        timer: 1000,
-        showConfirmButton: false,
+  
+      axiosPublic.post("/users", userInfo)
+      .then((res) => {
+        Swal.fire({
+          icon: "success",
+          title: "Login successful!",
+          text: "You have successfully logged in using Google.",
+          confirmButtonText: "OK",
+          confirmButtonColor: "#10B981",
+          customClass: {
+            confirmButton: "text-white",
+          },
+        }).then(() => {
+          navigate("/"); // Navigate to the home page after alert confirmation
+        });
+      })
+      .catch((error) => {
+        console.error("Request failed:", error); // Logging the error for debugging
+        // Swal.fire({
+        //   icon: "error",
+        //   title: "Login failed!",
+        //   text: error.message,
+        //   confirmButtonText: "OK",
+        //   confirmButtonColor: "#10B981",
+        //   customClass: {
+        //     confirmButton: "text-white",
+        //   },
+        // });
       });
-
-      setTimeout(() => {
-        navigate("/");
-        closeModal();
-      }, 1000);
-    } catch (error) {
-      Swal.fire("Error", error.message, "error");
-    }
+    }).catch((error) => {
+      console.error("Google sign-in failed:", error); // Logging the error for debugging
+      // Swal.fire({
+      //   icon: "error",
+      //   title: "Login failed!",
+      //   text: error.message,
+      //   confirmButtonText: "OK",
+      //   confirmButtonColor: "#10B981",
+      //   customClass: {
+      //     confirmButton: "text-white",
+      //   },
+      // });
+    });
   };
+  
+  
+  
 
   return (
     <div
@@ -91,11 +116,12 @@ const Signup = () => {
         isDarkMode ? "bg-gray-800" : "bg-white"
       } shadow w-full mx-auto flex items-center justify-center my-20 font-patrick`}
     >
-      <div className="fixed top-5 right-5 text-3xl">
-        <Link to="/">
-          <FaHome />
-        </Link>
-      </div>
+     <div className="fixed top-5 right-5  text-3xl flex items-center space-x-2">
+  <span className="text-2xl font-patrick-hand mr-3 ">After Login Go Back To </span>
+  <Link to="/">
+    <FaHome />
+  </Link>
+</div>
       <div className="mb-5">
         <form className="card-body" onSubmit={handleSubmit(onSubmit)}>
           <h3
@@ -177,7 +203,7 @@ const Signup = () => {
             />
           </div>
 
-          <div
+          {/* <div
             className={`text-center my-2 ${
               isDarkMode ? "text-white" : "text-black"
             }`}
@@ -186,7 +212,7 @@ const Signup = () => {
             <Link to="/login">
               <button className="ml-2 underline text-green">Login here</button>
             </Link>
-          </div>
+          </div> */}
         </form>
 
         <div className="text-center space-x-3">

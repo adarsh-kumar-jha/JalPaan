@@ -1,6 +1,5 @@
-/* eslint-disable react/prop-types */
-import { motion } from 'framer-motion';
 import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
@@ -47,7 +46,7 @@ const SamplePrevArrow = (props) => {
   return (
     <div
       className={className}
-      style={{ ...style, display: "block", background: "green" }}
+      style={{ ...style, display: "block", background: "red" }}
       onClick={onClick}
     >
       BACK
@@ -70,27 +69,23 @@ const SpecialDishes = () => {
 
   const settings = {
     dots: true,
-    infinite: false,
+    infinite: true,
     speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 3,
-    initialSlide: 1,
+    slidesToShow: 3, // Show three slides at a time on large screens
+    slidesToScroll: 1,
     responsive: [
       {
         breakpoint: 1024,
         settings: {
           slidesToShow: 3,
-          slidesToScroll: 3,
-          infinite: true,
-          dots: true,
+          slidesToScroll: 1,
         },
       },
       {
         breakpoint: 970,
         settings: {
           slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2,
+          slidesToScroll: 1,
         },
       },
       {
@@ -101,7 +96,6 @@ const SpecialDishes = () => {
         },
       },
     ],
-
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
   };
@@ -119,22 +113,22 @@ const SpecialDishes = () => {
         <h2 className='title'>Popular Categories</h2>
       </div>
 
-      <div className="md:absolute right-3 top-8 mb-10 md:mr-24">
+      <div className="md:absolute right-3 top-8 mb-10 md:mr-24 flex justify-end">
         <button
           onClick={() => slider?.current?.slickPrev()}
-          className="btn p-2 rounded-full ml-5"
+          className="btn p-2 rounded-full mr-2 bg-gray-200 dark:bg-gray-400"
         >
           <FaAngleLeft className="h-8 w-8 p-1" />
         </button>
         <button
-          className="bg-green btn p-2 rounded-full ml-5"
+          className="bg-green btn p-2 rounded-full ml-2"
           onClick={() => slider?.current?.slickNext()}
         >
           <FaAngleRight className="h-8 w-8 p-1" />
         </button>
       </div>
 
-      <Slider ref={slider} {...settings} className="overflow-hidden mt-10 space-x-5">
+      <Slider ref={slider} {...settings} className="overflow-hidden mt-10">
         {recipes.map((item, i) => (
           <Cards item={item} key={i} />
         ))}
