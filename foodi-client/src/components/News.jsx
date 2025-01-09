@@ -91,7 +91,7 @@ const UpdatedInfo = ({ text }) => {
           {part}
         </a>
       ) : (
-        // For content after colon, make it semibold
+        // For content after colon, making it semibold
         part.includes(":") ? (
           <>
             {part.split(":")[0]}:
